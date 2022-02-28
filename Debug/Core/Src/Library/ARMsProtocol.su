@@ -1,0 +1,16 @@
+ARMsProtocol.c:41:6:ARMsProtocol_FUNC_Init	8	static
+ARMsProtocol.c:63:6:ARMsProtocol_FUNC_Interface	16	static
+ARMsProtocol.c:140:6:ARMsProtocol_FUNC_Rx_Callback	16	static
+ARMsProtocol.c:157:6:ARMsProtocol_FUNC_Tx_Callback	16	static
+ARMsProtocol.c:176:6:ARMsProtocol_EXCEPTION_Response	16	static
+ARMsProtocol.c:195:6:ARMsProtocol_CALC_CRC	16	static
+ARMsProtocol.c:207:6:ARMsProtocol_FUNC_Rx_Clrbuf	24	static
+ARMsProtocol.c:220:6:ARMsProtocol_FUNC_Data_Clrbuf	16	static
+ARMsProtocol.c:233:6:ARMsProtocol_FUNC_Pathway	8	static
+ARMsProtocol.c:254:6:ARMsProtocol_FUNC_Jointjog	24	static
+ARMsProtocol.c:298:6:ARMsProtocol_FUNC_Catesianjog	136	static
+ARMsProtocol.c:351:6:ARMsProtocol_FUNC_Trajectory	8	static
+ARMsProtocol.c:372:6:ARMsProtocol_FUNC_Gripper	8	static
+ARMsProtocol.c:393:6:ARMsProtocol_FUNC_Jointfeedback	72	static
+ARMsProtocol.c:438:6:ARMsProtocol_FUNC_Boardfeedback	16	static
+ARMsProtocol.c:462:6:ARMsProtocol_FUNC_Clrflag	4	static
