@@ -30,8 +30,8 @@ void servo_initialise(Servo_Motor *dev, TIM_HandleTypeDef *timHandle,uint32_t ti
 	dev->timHandle = timHandle;
 	dev->tim_channel = tim_channel;
 	HAL_TIM_PWM_Start(dev->timHandle, dev->tim_channel);
-	dev->degree = 1;
-	servo_set_degree(dev, 0);
+	dev->degree = 0;
+	servo_set_degree(dev, 10);
 }
 
 void set_pwm(TIM_HandleTypeDef *tim_pwm, uint32_t tim_channel, double freq,

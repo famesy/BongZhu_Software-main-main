@@ -221,36 +221,42 @@ int main(void)
 	/*
 	 * Cascade Control
 	 */
-	PIDController_initialise(&position_pid_controller[0], 100, 0, 2.5);
-	PIDController_initialise(&position_pid_controller[1], 40, 0, 2.5);
-	PIDController_initialise(&position_pid_controller[2], 40, 0, 0);
-	PIDController_initialise(&position_pid_controller[3], 40, 0, 2.5);
-	PIDController_initialise(&position_pid_controller[4], 40, 0, 2.5);
+	PIDController_initialise(&position_pid_controller[0], 55, 0, 0); //120
+	PIDController_initialise(&position_pid_controller[1], 15, 0, 0); //45
+	PIDController_initialise(&position_pid_controller[2], 15, 0, 0); // 40
+	PIDController_initialise(&position_pid_controller[3], 12.5, 0, 0); //25
+	PIDController_initialise(&position_pid_controller[4], 12.5, 0, 0); //25
+	/*
+	 *  100
+	 *  30
+	 *  30
+	 *  25
+	 *  25
+	 */
+
 	/*
 	 * Velocity Pid Initialise
 	 */
 	/*
-	 * Feed-Forward Control
-	 */
-//	PIDController_initialise(&velocity_pid_controller[0], 300, 0, 0); // 0.05
-//	PIDController_initialise(&velocity_pid_controller[1], 100, 0, 0); // 0.001
-//	PIDController_initialise(&velocity_pid_controller[2], 250, 0, 0); // 0.1
-//	PIDController_initialise(&velocity_pid_controller[3], 75, 0.005, 0);
-//	PIDController_initialise(&velocity_pid_controller[4], 75, 0.005, 0);
-	/*
 	 * Cascade Control
 	 */
-	PIDController_initialise(&velocity_pid_controller[0], 20, 0, 0); //5
-	PIDController_initialise(&velocity_pid_controller[1], 20, 0, 0); //1
-	PIDController_initialise(&velocity_pid_controller[2], 10, 0, 0); //0.5
-	PIDController_initialise(&velocity_pid_controller[3], 20, 0, 0); //1
-	PIDController_initialise(&velocity_pid_controller[4], 20, 0, 0); //1
-
-	PIDController_set_limit(&velocity_pid_controller[0], 500, 2000);
-	PIDController_set_limit(&velocity_pid_controller[1], 500, 2000);
-	PIDController_set_limit(&velocity_pid_controller[2], 500, 2000);
-	PIDController_set_limit(&velocity_pid_controller[3], 500, 2000);
-	PIDController_set_limit(&velocity_pid_controller[4], 500, 2000);
+	PIDController_initialise(&velocity_pid_controller[0], 60, 0, 0); //100 0.05 . 80
+	PIDController_initialise(&velocity_pid_controller[1], 40, 0, 0); //60 0.05
+	PIDController_initialise(&velocity_pid_controller[2], 10, 0, 0); //10
+	PIDController_initialise(&velocity_pid_controller[3], 7.5, 0, 0); //1
+	PIDController_initialise(&velocity_pid_controller[4], 7.5, 0, 0); //1
+	/*
+	 *  80
+	 *  40
+	 *  10
+	 *  7.5
+	 *  7.5
+	 */
+	PIDController_set_limit(&velocity_pid_controller[0], 1000, 4000);
+	PIDController_set_limit(&velocity_pid_controller[1], 1000, 3000);
+	PIDController_set_limit(&velocity_pid_controller[2], 1000, 1000);
+	PIDController_set_limit(&velocity_pid_controller[3], 1000, 4000);
+	PIDController_set_limit(&velocity_pid_controller[4], 1000, 4000);
 	/*
 	 * Quintic Trajectory Following Initialise
 	 */
@@ -269,35 +275,35 @@ int main(void)
 	double v1[5] = {0};
 	double ac0[5] = {0};
 	double ac1[5] = {0};
-	double tf = 6;
+	double tf = 10;
 	int8_t traj_buf = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1) {
-		if ((delta_khe[0] != 0)||
-				(delta_khe[1] != 0)||
-				(delta_khe[2] != 0)||
-				(delta_khe[3] != 0)||
-				(delta_khe[4] != 0)){
-			/*
-			 * Tai-Ban Cartesian Jog
-			 */
-			double joint_config[5] = {0};
-			double delta_q[5] = {0};
-			joint_config[0] = desired_position[0] * (9.0/25.0);
-			joint_config[1] = desired_position[1] / 27.0;
-			joint_config[2] = asin(desired_position[2]/22.5);
-			joint_config[3] = (desired_position[3] + desired_position[4]) * 0.1125;
-			joint_config[4] = (desired_position[3] - desired_position[4])/8.0;
-			IVK(joint_config, delta_khe, delta_q);
-			for (int i = 0; i < 5; i++) {
-				delta_khe[i] = 0;
-				desired_position[i] += delta_q[i];
-			}
-		}
-		if (HAL_GetTick() - timestamp1 >= 100) {
+//		if ((delta_khe[0] != 0)||
+//				(delta_khe[1] != 0)||
+//				(delta_khe[2] != 0)||
+//				(delta_khe[3] != 0)||
+//				(delta_khe[4] != 0)){
+//			/*
+//			 * Tai-Ban Cartesian Jog
+//			 */
+//			double joint_config[5] = {0};
+//			double delta_q[5] = {0};
+//			joint_config[0] = desired_position[0] * (9.0/25.0);
+//			joint_config[1] = desired_position[1] / 27.0;
+//			joint_config[2] = asin(desired_position[2]/22.5);
+//			joint_config[3] = (desired_position[3] + desired_position[4]) * 0.1125;
+//			joint_config[4] = (desired_position[3] - desired_position[4])/8.0;
+//			IVK(joint_config, delta_khe, delta_q);
+//			for (int i = 0; i < 5; i++) {
+//				delta_khe[i] = 0;
+//				desired_position[i] += delta_q[i];
+//			}
+//		}
+		if (HAL_GetTick() - timestamp1 >= 50) {
 			/*
 			 * UART
 			 */
@@ -388,9 +394,9 @@ int main(void)
 			 * Trajectory Update
 			 */
 			for (int i = 0; i <5; i++){
-				QuinticTrajectory_update(&(quintic_trajectory[i]));
-				desired_position[i] = quintic_trajectory[i].pos_out;
-				desired_velocity[i] = quintic_trajectory[i].vel_out;
+//				QuinticTrajectory_update(&(quintic_trajectory[i]));
+//				desired_position[i] = quintic_trajectory[i].pos_out;
+//				desired_velocity[i] = quintic_trajectory[i].vel_out;
 				KalmanFilter_Update(&(kalman_filter[i]), motor_config[i]);
 			}
 			/*
@@ -407,7 +413,7 @@ int main(void)
 			/*
 			 * Cascade Controller
 			 */
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0	; i < 5; i++) {
 				cascade_out[i] = Cascade_PIDController_update(&(position_pid_controller[i]),
 						&(velocity_pid_controller[i]),
 						&(kalman_filter[i]), desired_position[i],

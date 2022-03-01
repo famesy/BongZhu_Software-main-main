@@ -257,28 +257,30 @@ void ARMsProtocol_FUNC_Jointjog(void){
 	ARMsProtocol_Data.Jointjog_flag = 1;
 	double data_buf = 0.0;
 	/* USER CODE BEGIN 3 */
-	for(int i = 0;i < 5;i++){		data_buf = (int16_t)((ARMsProtocol_Data.Data_buf[i*2] << 8) + ARMsProtocol_Data.Data_buf[(i*2)+1]);
+	for(int i = 0;i < 5;i++){
+		data_buf = (int16_t)((ARMsProtocol_Data.Data_buf[i*2] << 8) + ARMsProtocol_Data.Data_buf[(i*2)+1]);
 		data_buf = data_buf/1000.0;
-		if (i == 0){
-			data_buf = data_buf * (9.0 / 25.0);
-			desired_position[i] += data_buf;
-		}
-		else if (i == 1){
-			data_buf = data_buf / 27.0;
-			desired_position[i] += data_buf;
-		}
-		else if (i == 2){
-			data_buf = asin(data_buf/22.5);
-			desired_position[i] += data_buf;
-		}
-		else if (i ==3){
-			desired_position[3] += (4.444444444 * data_buf);
-			desired_position[4] += (4.444444444 * data_buf);
-		}
-		else if (i ==4){
-			desired_position[3] += (4 * data_buf);
-			desired_position[4] -= (4 * data_buf);
-		}
+		desired_position[i] += data_buf;
+//		if (i == 0){
+//			data_buf = data_buf * (9.0 / 25.0);
+//			desired_position[i] += data_buf;
+//		}
+//		else if (i == 1){
+//			data_buf = data_buf / 27.0;
+//			desired_position[i] += data_buf;
+//		}
+//		else if (i == 2){
+//			data_buf = asin(data_buf/22.5);
+//			desired_position[i] += data_buf;
+//		}
+//		else if (i ==3){
+//			desired_position[3] += (4.444444444 * data_buf);
+//			desired_position[4] += (4.444444444 * data_buf);
+//		}
+//		else if (i ==4){
+//			desired_position[3] += (4 * data_buf);
+//			desired_position[4] -= (4 * data_buf);
+//		}
 	}
 	/* USER CODE END 3 */
 
@@ -305,15 +307,16 @@ void ARMsProtocol_FUNC_Catesianjog(void){
 	double delta_khe[5] = {0};
 	for (int i = 0; i <5; i++){
 		delta_khe[i] = (int16_t)((ARMsProtocol_Data.Data_buf[i*2] << 8) + ARMsProtocol_Data.Data_buf[(i*2)+1]);
-		if (i == 0){
-			delta_khe[i] = (delta_khe[i]/1000.0f)/10;
-		}
-		if (i == 1){
-			delta_khe[i] = (delta_khe[i]/1000.0f)/10;
-		}
-		else {
-			delta_khe[i] = 5*(delta_khe[i]/1000.0f);
-		}
+		delta_khe[i] = delta_khe[i]/1000.0;
+//		if (i == 0){
+//			delta_khe[i] = (delta_khe[i]/1000.0f)/10;
+//		}
+//		if (i == 1){
+//			delta_khe[i] = (delta_khe[i]/1000.0f)/10;
+//		}
+//		else {
+//			delta_khe[i] = 5*(delta_khe[i]/1000.0f);
+//		}
 	}
 //	joint_config[0] = (2*M_PI * encoder_config[0])/16384.0f;
 //	joint_config[1] = (2*M_PI * encoder_config[1])/16384.0f;

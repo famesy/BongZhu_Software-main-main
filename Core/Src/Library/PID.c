@@ -72,7 +72,7 @@ double Cascade_PIDController_update(PIDController *position_pid,
 		double desired_position, double desired_velocity) {
 	double velocity_command = PIDController_update(position_pid,
 			desired_position, kalman_filter->x1);
-	double velocity_error = desired_velocity + velocity_command
+	double velocity_error = velocity_command
 			- kalman_filter->x2;
 	double out = PIDController_update(velocity_pid, velocity_error,
 			kalman_filter->x2);
