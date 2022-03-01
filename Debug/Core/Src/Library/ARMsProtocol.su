@@ -8,9 +8,9 @@ ARMsProtocol.c:207:6:ARMsProtocol_FUNC_Rx_Clrbuf	24	static
 ARMsProtocol.c:220:6:ARMsProtocol_FUNC_Data_Clrbuf	16	static
 ARMsProtocol.c:233:6:ARMsProtocol_FUNC_Pathway	8	static
 ARMsProtocol.c:254:6:ARMsProtocol_FUNC_Jointjog	24	static
-ARMsProtocol.c:300:6:ARMsProtocol_FUNC_Catesianjog	136	static
-ARMsProtocol.c:354:6:ARMsProtocol_FUNC_Trajectory	8	static
-ARMsProtocol.c:375:6:ARMsProtocol_FUNC_Gripper	8	static
-ARMsProtocol.c:396:6:ARMsProtocol_FUNC_Jointfeedback	72	static
-ARMsProtocol.c:441:6:ARMsProtocol_FUNC_Boardfeedback	16	static
-ARMsProtocol.c:465:6:ARMsProtocol_FUNC_Clrflag	4	static
+ARMsProtocol.c:303:6:ARMsProtocol_FUNC_Catesianjog	136	static
+ARMsProtocol.c:357:6:ARMsProtocol_FUNC_Trajectory	8	static
+ARMsProtocol.c:378:6:ARMsProtocol_FUNC_Gripper	8	static
+ARMsProtocol.c:399:6:ARMsProtocol_FUNC_Jointfeedback	72	static
+ARMsProtocol.c:444:6:ARMsProtocol_FUNC_Boardfeedback	16	static
+ARMsProtocol.c:468:6:ARMsProtocol_FUNC_Clrflag	4	static

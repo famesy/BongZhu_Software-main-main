@@ -221,11 +221,11 @@ int main(void)
 	/*
 	 * Cascade Control
 	 */
-	PIDController_initialise(&position_pid_controller[0], 55, 0, 0); //120
+	PIDController_initialise(&position_pid_controller[0], 60, 0, 0); //120
 	PIDController_initialise(&position_pid_controller[1], 15, 0, 0); //45
 	PIDController_initialise(&position_pid_controller[2], 15, 0, 0); // 40
-	PIDController_initialise(&position_pid_controller[3], 12.5, 0, 0); //25
-	PIDController_initialise(&position_pid_controller[4], 12.5, 0, 0); //25
+	PIDController_initialise(&position_pid_controller[3], 10, 0, 0); //25
+	PIDController_initialise(&position_pid_controller[4], 25, 0, 0); //25
 	/*
 	 *  100
 	 *  30
@@ -243,8 +243,8 @@ int main(void)
 	PIDController_initialise(&velocity_pid_controller[0], 60, 0, 0); //100 0.05 . 80
 	PIDController_initialise(&velocity_pid_controller[1], 40, 0, 0); //60 0.05
 	PIDController_initialise(&velocity_pid_controller[2], 10, 0, 0); //10
-	PIDController_initialise(&velocity_pid_controller[3], 7.5, 0, 0); //1
-	PIDController_initialise(&velocity_pid_controller[4], 7.5, 0, 0); //1
+	PIDController_initialise(&velocity_pid_controller[3], 5	, 0, 0); //1
+	PIDController_initialise(&velocity_pid_controller[4], 15, 0, 0); //1
 	/*
 	 *  80
 	 *  40
@@ -282,28 +282,28 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1) {
-//		if ((delta_khe[0] != 0)||
-//				(delta_khe[1] != 0)||
-//				(delta_khe[2] != 0)||
-//				(delta_khe[3] != 0)||
-//				(delta_khe[4] != 0)){
-//			/*
-//			 * Tai-Ban Cartesian Jog
-//			 */
-//			double joint_config[5] = {0};
-//			double delta_q[5] = {0};
-//			joint_config[0] = desired_position[0] * (9.0/25.0);
-//			joint_config[1] = desired_position[1] / 27.0;
-//			joint_config[2] = asin(desired_position[2]/22.5);
-//			joint_config[3] = (desired_position[3] + desired_position[4]) * 0.1125;
-//			joint_config[4] = (desired_position[3] - desired_position[4])/8.0;
-//			IVK(joint_config, delta_khe, delta_q);
-//			for (int i = 0; i < 5; i++) {
-//				delta_khe[i] = 0;
-//				desired_position[i] += delta_q[i];
-//			}
-//		}
-		if (HAL_GetTick() - timestamp1 >= 50) {
+		if ((delta_khe[0] != 0)||
+				(delta_khe[1] != 0)||
+				(delta_khe[2] != 0)||
+				(delta_khe[3] != 0)||
+				(delta_khe[4] != 0)){
+			/*
+			 * Tai-Ban Cartesian Jog
+			 */
+			double joint_config[5] = {0};
+			double delta_q[5] = {0};
+			joint_config[0] = desired_position[0] * (9.0/25.0);
+			joint_config[1] = desired_position[1] / 27.0;
+			joint_config[2] = asin(desired_position[2]/22.5);
+			joint_config[3] = (desired_position[3] + desired_position[4]) * 0.1125;
+			joint_config[4] = (desired_position[3] - desired_position[4])/8.0;
+			IVK(joint_config, delta_khe, delta_q);
+			for (int i = 0; i < 5; i++) {
+				delta_khe[i] = 0;
+				desired_position[i] += delta_q[i];
+			}
+		}
+		if (HAL_GetTick() - timestamp1 >= 10) {
 			/*
 			 * UART
 			 */
@@ -352,31 +352,11 @@ int main(void)
 			timestamp3 = HAL_GetTick();
 			if (quintic_trajectory[0].is_end) {
 				if (traj_buf == 0) {
-//					QuinticTrajectory_set_param(&(quintic_trajectory[0]), -2,
-//							0, 0, 0.094814814814815, -0.018962962962963, 0.001011358024691, 7.5);
-//					QuinticTrajectory_set_param(&(quintic_trajectory[1]), -20,
-//							0, 0, 0.545185185185185, -0.109037037037037, 0.005815308641975, 7.5);
-//					QuinticTrajectory_set_param(&(quintic_trajectory[2]), -2.5,
-//							0, 0, 0.201481481481481, -0.040296296296296, 0.002149135802469, 7.5);
-//					QuinticTrajectory_set_param(&(quintic_trajectory[3]), -2.75, 0,
-//							0, 0.130370370370370, -0.026074074074074, 0.001390617283951, 7.5);
-//					QuinticTrajectory_set_param(&(quintic_trajectory[4]), -2.75, 0,
-//							0, 0.130370370370370, -0.026074074074074, 0.001390617283951, 7.5);
 					for (int i =0; i <5 ;i ++){
 						QuinticTrajectory_cal_and_set_coeff(&(quintic_trajectory[i]), q0[i], q1[i], v0[i], v1[i], ac0[i], ac1[i], tf);
 					}
 					traj_buf = 1;
 				} else if (traj_buf == 1) {
-//					QuinticTrajectory_set_param(&(quintic_trajectory[0]), 2,
-//							0, 0, -0.094814814814815, 0.018962962962963, -0.001011358024691, 7.5);
-//					QuinticTrajectory_set_param(&(quintic_trajectory[1]), 3, 0,
-//							0, -0.545185185185185, 0.109037037037037, -0.005815308641975, 7.5);
-//					QuinticTrajectory_set_param(&(quintic_trajectory[2]), 6, 0,
-//							0, -0.201481481481481, 0.040296296296296, -0.002149135802469, 7.5);
-//					QuinticTrajectory_set_param(&(quintic_trajectory[3]), 2.75, 0,
-//							0, -0.130370370370370, 0.026074074074074, -0.001390617283951, 7.5);
-//					QuinticTrajectory_set_param(&(quintic_trajectory[4]), 2.75, 0,
-//							0, -0.130370370370370, 0.026074074074074, -0.001390617283951, 7.5);
 					for (int i =0; i <5 ;i ++){
 						QuinticTrajectory_cal_and_set_coeff(&(quintic_trajectory[i]), q1[i], q0[i], v0[i], v1[i], ac0[i], ac1[i], tf);
 					}
@@ -402,14 +382,14 @@ int main(void)
 			/*
 			 * Joint Limit
 			 */
-			for (int i = 0; i < 5; i++) {
-				if (desired_position[i] >= max_desired_position[i]) {
-					desired_position[i] = max_desired_position[i];
-				}
-				if (desired_position[i] <= min_desired_position[i]) {
-					desired_position[i] = min_desired_position[i];
-				}
-			}
+//			for (int i = 0; i < 5; i++) {
+//				if (desired_position[i] >= max_desired_position[i]) {
+//					desired_position[i] = max_desired_position[i];
+//				}
+//				if (desired_position[i] <= min_desired_position[i]) {
+//					desired_position[i] = min_desired_position[i];
+//				}
+//			}
 			/*
 			 * Cascade Controller
 			 */
@@ -551,4 +531,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-

@@ -261,26 +261,29 @@ void ARMsProtocol_FUNC_Jointjog(void){
 		data_buf = (int16_t)((ARMsProtocol_Data.Data_buf[i*2] << 8) + ARMsProtocol_Data.Data_buf[(i*2)+1]);
 		data_buf = data_buf/1000.0;
 		desired_position[i] += data_buf;
-//		if (i == 0){
-//			data_buf = data_buf * (9.0 / 25.0);
-//			desired_position[i] += data_buf;
-//		}
-//		else if (i == 1){
-//			data_buf = data_buf / 27.0;
-//			desired_position[i] += data_buf;
-//		}
-//		else if (i == 2){
-//			data_buf = asin(data_buf/22.5);
-//			desired_position[i] += data_buf;
-//		}
-//		else if (i ==3){
-//			desired_position[3] += (4.444444444 * data_buf);
-//			desired_position[4] += (4.444444444 * data_buf);
-//		}
-//		else if (i ==4){
-//			desired_position[3] += (4 * data_buf);
-//			desired_position[4] -= (4 * data_buf);
-//		}
+		if (i == 0){
+			data_buf = data_buf / (9.0 / 25.0);
+			desired_position[0] += data_buf;
+		}
+		else if (i == 1){
+			data_buf = data_buf * 27.0;
+			desired_position[1] += data_buf;
+		}
+		else if (i == 2){
+			data_buf = 22.5 * sin(data_buf);
+			desired_position[2] += data_buf;
+		}
+		else if (i ==3){
+			desired_position[3] += (40.0 * data_buf)/9.0;
+			desired_position[4] += (40.0 * data_buf)/9.0;
+		}
+		else if (i ==4){
+			desired_position[3] += (4 * data_buf);
+			desired_position[4] -= (4 * data_buf);
+		}
+		else {
+			desired_position[i] += data_buf;
+		}
 	}
 	/* USER CODE END 3 */
 
